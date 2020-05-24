@@ -1,13 +1,46 @@
-* { 
+* {
     box-sizing: border-box;
-    font-family: 'PT Mono';font-size: 18px; 
+    font-family: 'PT Mono';font-size: 18px;
 }
 
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0;   
+    padding: 0;
 }
+
+.loginform {
+    padding: 150px 0;
+    position: absolute;
+    text-align: center;
+    color: #ffffff;
+    background-color:#37474f;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+ }
+ .loginform div{
+     position: relative;
+     bottom: 60px;
+ }
+ .logintitle{
+    font-size: 40px;
+ }
+
+ #loginusername{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ffffff;
+    outline: none;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 300px;
+    color: #ffffff;
+    font-size: 38px;
+ }
 
 #toolbar {
     width: 100%;
@@ -39,10 +72,74 @@ html, body {
 }
 
 #contend #chat {
-    width: calc(100% - 500px);
+    width: calc(100% - 400px);
     height: 100%;
     display: inline-block;
     float: left;
+    position: relative;
+}
+#contend #chat form {
+  width: calc(100% - 20px);
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  background-color: #999999;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+#contend #chat form #input {
+  width: calc(100% - 90px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: #ffffff;
+  font: 10px;
+  margin: 10px;
+}
+#contend #chat form #send {
+  display: none;
+  width: 50px;
+  height: 30px;
+  padding: 0;
+  border: none;
+}
+#contend #chat form div {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background-color: #00aaad;
+  border-radius: 6px;
+  position: relative;
+  left: 15px;
+}
+
+#contend #chat #messages {
+  width: 100%;
+  height: calc(100% - 50px);
+  padding: 10px;
+}
+#contend #chat #messages .message {
+  width: 100%;
+  padding: 5px;
+  background-color: #cccccc;
+  color: #000000;
+  font-size: 18px;
+  position: relative;
+}
+#contend #chat #messages .message:nth-child(2n) {background-color: #ffffff}
+#contend #chat #messages .message .user::after {
+  content: ":"
+}
+#contend #chat #messages .message .time {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 10px;
 }
 
 #contend #info {
@@ -71,7 +168,7 @@ html, body {
     font-size: 18px;
 }
 #contend #info #parts {
-    
+
 }
 #contend #info #parts .part::before {
     width: 10px;
@@ -84,4 +181,26 @@ html, body {
 #contend #info #parts .part {
     margin: 5px;
     font-size: 16px;
+}
+
+#contend #info #share {
+  background-color: #7477b8;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+#contend #info #email {
+  background-color: #add58a;
+  position: absolute;
+  bottom: 20px;
+  right: 80px;
+}
+
+.fab {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
