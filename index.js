@@ -17,18 +17,14 @@ function User(username, usercolor) {
   this.usercolor = usercolor;
 }
 
-app.get('/mama', (req, res) => {
-  res.sendFile(__dirname + '/views/index.old.html');
-});
-
-app.get('/phili', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
 io.on('connection', (socket) => {
   var addedUser = false;
   console.log('a user conneted');
-  
+
   socket.on('newMessage', (data) => {
     //console.log( data);
     socket.broadcast.emit("newMessage", {
@@ -56,7 +52,7 @@ io.on('connection', (socket) => {
       // echo globally (all clients expect you) that a person has connected
     socket.broadcast.emit('user joined', {
       username: socket.username,
-      numUsers: numUsers, 
+      numUsers: numUsers,
       userlist: userlist
     });
 
@@ -69,10 +65,10 @@ io.on('connection', (socket) => {
         --numUsers;
 
          //Remove from array by value
-        
+
         userlist.splice(userlist.indexOf(socket.user), 1);
-        //console.log(usernameList); 
-  
+        //console.log(usernameList);
+
         // echo globally that this client has left
         socket.broadcast.emit('user left', {
           username: socket.username,
@@ -82,8 +78,8 @@ io.on('connection', (socket) => {
       }
     });
 
- 
- 
+
+
 });
 
 http.listen(3000, () => {
@@ -92,4 +88,3 @@ http.listen(3000, () => {
 
 //`<p>Hallo ${name}</p>`
 //"<p>Hallo " + name + "</p>"
-
