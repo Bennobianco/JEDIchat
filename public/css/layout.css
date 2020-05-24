@@ -85,6 +85,30 @@ html, body {
   left: 15px;
 }
 
+#contend #chat #messages {
+  width: 100%;
+  height: calc(100% - 50px);
+  padding: 10px;
+}
+#contend #chat #messages .message {
+  width: 100%;
+  padding: 5px;
+  background-color: #cccccc;
+  color: #000000;
+  font-size: 18px;
+  position: relative;
+}
+#contend #chat #messages .message:nth-child(2n) {background-color: #ffffff}
+#contend #chat #messages .message .user::after {
+  content: ":"
+}
+#contend #chat #messages .message .time {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  font-size: 10px;
+}
+
 #contend #info {
     width: 400px;
     height: 100%;
@@ -124,4 +148,26 @@ html, body {
 #contend #info #parts .part {
     margin: 5px;
     font-size: 16px;
+}
+
+#contend #info #share {
+  background-color: #7477b8;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+#contend #info #email {
+  background-color: #add58a;
+  position: absolute;
+  bottom: 20px;
+  right: 80px;
+}
+
+.fab {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
