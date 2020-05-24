@@ -9,6 +9,39 @@ html, body {
     padding: 0;
 }
 
+.loginform {
+    padding: 150px 0;
+    position: absolute;
+    text-align: center;
+    color: #ffffff;
+    background-color:#37474f;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+ }
+ .loginform div{
+     position: relative;
+     bottom: 60px;
+ }
+ .logintitle{
+    font-size: 40px;
+ }
+
+ #loginusername{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ffffff;
+    outline: none;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 300px;
+    color: #ffffff;
+    font-size: 38px;
+ }
+
 #toolbar {
     width: 100%;
     height: 50px;
