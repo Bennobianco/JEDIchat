@@ -1,0 +1,82 @@
+* { 
+    box-sizing: border-box;
+    font-family: 'PT Mono';font-size: 18px; 
+}
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;   
+}
+
+.loginform {
+    padding: 150px 0;
+    position: absolute;
+    text-align: center;
+    color: cornsilk;
+    background-color:#37474f;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+ }
+ .loginform div{
+     position: relative;
+     bottom: 60px;
+ }
+ .logintitle{
+    font-size: 40px;
+ }
+
+ #loginusername{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid cornsilk;
+    outline: none;
+    padding-bottom: 15px;
+    text-align: center;
+    width: 300px;
+    color: cornsilk;
+    font-size: 38px;
+ }
+
+ .log {
+    color: gray;
+    font-size: 70%;
+    margin: 5px;
+    text-align: center;
+  }
+
+form {
+     background: #000; 
+     padding: 3px; 
+     position: fixed; 
+     bottom: 0; 
+     width: 100%; 
+}
+form input { 
+    border: 0; 
+    padding: 10px; width: 90%; margin-right: 0.5%;
+ }
+form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+#chatlist { list-style-type: none; margin: 0; padding: 0; }
+#chatlist li { padding: 5px 10px; }
+#chatlist li:nth-child(odd) { background: #eee; }
+
+.column {
+    float: left;
+    padding: 10px;
+}
+.left {
+    width: 70%;
+}
+.right {
+    width: 30%;
+}
+.chatarea:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+    

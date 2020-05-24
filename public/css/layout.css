@@ -1,0 +1,87 @@
+* { 
+    box-sizing: border-box;
+    font-family: 'PT Mono';font-size: 18px; 
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;   
+}
+
+#toolbar {
+    width: 100%;
+    height: 50px;
+    padding: 8px;
+    background-color: #00aaad;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#toolbar #icon {
+    display: inline-block;
+}
+#toolbar #icon svg{
+    width: 40px;
+    height: 40px;
+}
+#toolbar #title {
+    display: inline-block;
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+#contend {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+#contend #chat {
+    width: calc(100% - 500px);
+    height: 100%;
+    display: inline-block;
+    float: left;
+}
+
+#contend #info {
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+    float: right;
+    background-color: #eeeeee;
+    padding: 30px;
+}
+#contend #info {
+    width: 400px;
+    height: 100%;
+    display: inline-block;
+    float: right;
+    background-color: #eeeeee;
+    padding: 30px;
+}
+#contend #info #room {
+    margin: 0;
+    font-size: 20px;
+}
+#contend #info #partnum {
+    margin: 0;
+    margin-top: 14px;
+    font-size: 18px;
+}
+#contend #info #parts {
+    
+}
+#contend #info #parts .part::before {
+    width: 10px;
+    height: 10px;
+    content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+    position: relative;
+    top: 5px;
+    right: 5px;
+}
+#contend #info #parts .part {
+    margin: 5px;
+    font-size: 16px;
+}
