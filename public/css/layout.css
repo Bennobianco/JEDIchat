@@ -1,12 +1,12 @@
-* { 
+* {
     box-sizing: border-box;
-    font-family: 'PT Mono';font-size: 18px; 
+    font-family: 'PT Mono';font-size: 18px;
 }
 
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0;   
+    padding: 0;
 }
 
 #toolbar {
@@ -39,10 +39,50 @@ html, body {
 }
 
 #contend #chat {
-    width: calc(100% - 500px);
+    width: calc(100% - 400px);
     height: 100%;
     display: inline-block;
     float: left;
+    position: relative;
+}
+#contend #chat form {
+  width: calc(100% - 20px);
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  background-color: #999999;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+#contend #chat form #input {
+  width: calc(100% - 90px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: #ffffff;
+  font: 10px;
+  margin: 10px;
+}
+#contend #chat form #send {
+  display: none;
+  width: 50px;
+  height: 30px;
+  padding: 0;
+  border: none;
+}
+#contend #chat form div {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background-color: #00aaad;
+  border-radius: 6px;
+  position: relative;
+  left: 15px;
 }
 
 #contend #info {
@@ -71,7 +111,7 @@ html, body {
     font-size: 18px;
 }
 #contend #info #parts {
-    
+
 }
 #contend #info #parts .part::before {
     width: 10px;
