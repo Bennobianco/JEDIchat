@@ -24,10 +24,10 @@ $(() => {
       //console.log(userListread)
       // importand elements
       let objects = {}
-      objects.count = document.querySelector("#partnum");
-      objects.users = document.querySelector("#parts");
-      //objects.count = document.querySelector("#usercount");
-      //objects.users = document.querySelector("#users");
+      //objects.count = document.querySelector("#partnum");
+      //objects.users = document.querySelector("#parts");
+      objects.count = document.querySelector("#usercount");
+      objects.users = document.querySelector("#users");
       // update list
       if (userlist.length ===1){
         objects.count.innerText = 'one user is online';
@@ -36,11 +36,7 @@ $(() => {
       }
       html = "";
       for (let i = 0; i < userlist.length; i++) {
-        if (userlist[i].username == username) {
-          html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}(you)</p>`
-        } else {
-          html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}</p>`
-        }
+        html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}</p>`
       }
       objects.users.innerHTML = html;
     }
@@ -48,12 +44,12 @@ $(() => {
 
   // Sends a chat message
   const sendMessage = () => {
-    var message = $('#input').val();
+    var message = $('#message').val();
     // Prevent markup from being injected into the message
     message = cleanInput(message);
     // if there is a non-empty message and a socket connection
     if (message && connected) {
-      $('#input').val("");
+      $('#message').val("");
       addChatMessage({
         username: username,
         message: message
@@ -67,14 +63,14 @@ $(() => {
 
   const addChatMessage = (data) => {
 
-    var $usernameDiv = $('<span class="user"/>')
+    var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
       .css('color', getUsernameColor(data.username));
-    var $messageBodyDiv = $('<span class="text">')
-      .text(data.message);
+    var $messageBodyDiv = $('<span class="messageBody">')
+      .text(": "+ data.message);
     
-    $('#messages').append(
-      $("<div class='message'></div>").append(
+    $('#chatlist').append(
+      $("<li></li>").append(
         $usernameDiv, $messageBodyDiv
       )
     );
@@ -120,9 +116,8 @@ $(() => {
       //   usercolor
       // });
 
-      $("#input").attr("placeholder", `Type here...(as ${username})`)
       
-      $("#input").focus();
+      $("#message").focus();
 
     }
   }

@@ -4,6 +4,12 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var path = require('path');
 
+var os = require( 'os' );
+
+var networkInterfaces = os.networkInterfaces( );
+
+console.log( networkInterfaces.wlo1[0].address );
+
 //app.set('viewDir', 'views');
 //app.set('view engine', 'html');
 // Routing
@@ -19,6 +25,10 @@ function User(username, usercolor) {
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/mama', (req, res) => {
+  res.sendFile(__dirname + '/views/index.old.html');
 });
 
 io.on('connection', (socket) => {
@@ -82,8 +92,10 @@ io.on('connection', (socket) => {
 
 });
 
+
 http.listen(3000, () => {
   console.log('listening on *:3000');
+  
 });
 
 //`<p>Hallo ${name}</p>`
