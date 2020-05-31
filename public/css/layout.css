@@ -169,9 +169,8 @@ html, body {
     margin-top: 14px;
     font-size: 18px;
 }
-#contend #info #parts {
 
-}
+
 #contend #info #parts .part::before {
     width: 10px;
     height: 10px;

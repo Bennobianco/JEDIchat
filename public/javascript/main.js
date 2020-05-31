@@ -3,13 +3,16 @@ $(() => {
   var $loginPage = $('.loginform'); // The login page
 
   // Initialize variables
-  // Prompt for setting a username
+  
   var username;
   var usercolor;
   var userListread = [];
   var $currentInput = $usernameInput.focus();
   var connected = false;
   var socket = io();
+  var serverIPv4Address;
+  var port
+  var copyHttpLinkAndPort;
 
   var COLORS = [
     '#311B92', '#6A1B9A', '#AD1457', '#B71C1C',
@@ -87,7 +90,7 @@ $(() => {
     for (var i = 0; i < username.length; i++) {
        hash = username.charCodeAt(i) + (hash << 5) - hash;
     }
-    console.log('hash: ' + hash);
+    //console.log('hash: ' + hash);
     // Calculate color
     var index = Math.abs(hash % COLORS.length);
     return COLORS[index];
@@ -115,10 +118,6 @@ $(() => {
 
       // Tell the server your username an color
       socket.emit('add user', username, usercolor);
-      // socket.on('add user', (user) => {
-      //   username,
-      //   usercolor
-      // });
 
       $("#input").attr("placeholder", `Type here...(as ${username})`)
       
@@ -137,43 +136,50 @@ $(() => {
       }
     });
 
+    function copyTextToClipboard(text) {
+      if (!navigator.clipboard) {
+        console.log('nein');
+        return;
+      }
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    }
+
   // Click events
 
- // Focus input when clicking anywhere on login page
- $loginPage.click(() => {
+  // Focus input when clicking anywhere on login page
+  $loginPage.click(() => {
     $currentInput.focus();
   }); 
+
+  $("#share").click(function(){
+    copyTextToClipboard('Bob22');
+  })
+
+
 
     //socket events
     
    socket.on('login', (data) => {
       connected = true;
-      // Display the welcome message
-      console.log(data);
-      
+
+      serverIPv4Address = data.serverIPv4Address;
+      port = data.port;  
+      console.log(serverIPv4Address + ":" + port);   
       //update user list
       userlist = data.userlist;
-        log("Welcome to Socket.IO Chat – ");
-    //   if (data.numUsers === 1) {
-    //     log ("there's 1 participant");
-    //   }else {
-    //   $('#userlist').append(
-    //     $("<li>").addClass('log').text('there are ' + data.numUsers + ' participants')
-    //     ); 
-    //   console.log('there are ' + data.numUsers + ' participants');
-    //   }
-    //   data.usernameList.forEach(item => {
-    //     $('#userlist').append(
-    //       $("<li>").addClass('log').text('participants online : ' + item)
-    //     ); 
-    //       console.log('participants online : ' + item);
-    // });
+
+      //Display wellcome message  
+      log("Welcome to Socket.IO Chat – ");
 
   });
   
   socket.on('user joined', (data) => {
       
-        log('user joined: ' + data.username);
+      //log('user joined: ' + data.username);
       
       //update user lsit
       userlist = data.userlist;
@@ -191,19 +197,7 @@ $(() => {
 
   socket.on('newMessage', (message) => {
     addChatMessage(message);
-    // var $usernameDiv = $('<span class="username"/>')
-    //   .text(message.username)
-    //   .css('color', getUsernameColor(message.username));
-    // var $messageBodyDiv = $('<span class="messageBody">')
-    //   .text(": "+ message.message);
-    
-    // $('#chatlist').append(
-    //   $("<li></li>").append(
-    //     $usernameDiv, $messageBodyDiv
-    //     //$("<span></span>").text(message.username).css("color", "red"),
-    //     //$("<span></span>").text(": "+ message.message),
-    //   )
-    // );
+   
   });
 
    
@@ -217,45 +211,21 @@ $(() => {
     userlist = data.userlist;
 
     log(data.username + ' left');
-    // $('#userlist').append(
-    //   $("<li>").addClass('log').text(data.username + ' left')
-    // ); 
-    //console.log(data.numUsers);
-    // data.usernameList.forEach(item => {
-    //   $('#userlist').append(
-    //       $("<li>").addClass('log').text('participants online : ' + item)
-    //   ); 
-    //        console.log('participants online : ' + item);
-         
-    //  });
+  
   });
 
   socket.on('reconnect', () => {
     console.log('you have been reconnected');
     if (username) {
       //socket.emit('add user', username);
-      //hallo
+      
     }
   });
 
   $('form').submit((e) => {
 
-    // var message = $('#message').val();
     e.preventDefault(); // prevents page reloading
     sendMessage();
-    // if (message != "") {
-      
-    //   $('#message').val("");
-      
-    //   $('#chatlist').append(
-    //     $("<li></li>").text(username + ': ' + message)
-    //   ); 
-
-    //   socket.emit('newMessage', 
-    //       //username: username,
-    //       message
-    //   );
-    // }
     
   });
 
