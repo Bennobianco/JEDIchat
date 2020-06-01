@@ -9,7 +9,7 @@ a cool web JED 4 JEDIS with socket.io
     
 2. Go to folder
 
-    `cd JEDIchat`
+    `cd JEDIchat/`
     
 3. Installe dependencies
 
