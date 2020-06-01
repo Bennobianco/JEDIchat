@@ -31,10 +31,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/mama', (req, res) => {
-  res.sendFile(__dirname + '/views/index.old.html');
-});
-
 io.on('connection', (socket) => {
   var addedUser = false;
   console.log('a user conneted');
