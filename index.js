@@ -9,7 +9,10 @@ var os = require( 'os' );
 const PORT = process.env.SERVER_PORT;
 //var networkInterfaces = os.networkInterfaces( );
 //console.log( networkInterfaces.wlo1[0].address );
-var ServerIPv4Address = os.networkInterfaces( ).wlo1[0].address;
+
+// BUG: the networkInterfaces is different on PC
+//var ServerIPv4Address = os.networkInterfaces().wlo1[0].address;   // 4 BennoBianco
+var ServerIPv4Address = os.networkInterfaces().enp33s0[0].address;  // 4 Captainpast
 
 //app.set('viewDir', 'views');
 //app.set('view engine', 'html');
@@ -26,10 +29,6 @@ function User(username, usercolor) {
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
-});
-
-app.get('/mama', (req, res) => {
-  res.sendFile(__dirname + '/views/index.old.html');
 });
 
 io.on('connection', (socket) => {
@@ -102,6 +101,5 @@ http.listen(PORT, () => {
 
 // http.listen(3000, () => {
 //   console.log('listening on *:3000');
-  
-// });
 
+// });
