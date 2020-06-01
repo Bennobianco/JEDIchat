@@ -137,12 +137,12 @@ html, body {
 #contend #chat #messages .message {
   width: 100%;
   padding: 5px;
-  background-color: #cccccc;
+  background-color: #ffffff;
   color: #000000;
   font-size: 18px;
   position: relative;
 }
-#contend #chat #messages .message:nth-child(2n) {background-color: #ffffff}
+#contend #chat #messages .message:nth-child(2n) {background-color: #cccccc}
 #contend #chat #messages .message .user::after {
   content: ": ";
   color: #000000;
