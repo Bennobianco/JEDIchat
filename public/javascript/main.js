@@ -24,13 +24,12 @@ $(() => {
     get: function () { return userListread; },
     set: function (v) {
       userListread = v;
-      //console.log(userListread)
+      
       // importand elements
       let objects = {}
       objects.count = document.querySelector("#partnum");
       objects.users = document.querySelector("#parts");
-      //objects.count = document.querySelector("#usercount");
-      //objects.users = document.querySelector("#users");
+      
       // update list
       if (userlist.length ===1){
         objects.count.innerText = 'one user is online';
@@ -49,7 +48,7 @@ $(() => {
     }
   });
 
-  // Sends a chat message
+  // Send a chat message
   const sendMessage = () => {
     var message = $('#input').val();
     // Prevent markup from being injected into the message
@@ -138,14 +137,21 @@ $(() => {
 
     function copyTextToClipboard(text) {
       if (!navigator.clipboard) {
-        console.log('nein');
+        console.log('does not work without https');
         return;
       }
       navigator.clipboard.writeText(text).then(function() {
         console.log('Async: Copying to clipboard was successful!');
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copied: " + text;
       }, function(err) {
         console.error('Async: Could not copy text: ', err);
       });
+    }
+
+    function showMessageAfterCopiedLink() {
+      var tooltip = document.getElementById("myTooltip");
+      tooltip.innerHTML = "Copy Jed link to clipboard";
     }
 
   // Click events
@@ -155,11 +161,14 @@ $(() => {
     $currentInput.focus();
   }); 
 
-  $("#share").click(function(){
-    copyTextToClipboard('Bob22');
+  $("#share").on({
+    click: ()=> {
+      copyTextToClipboard(copyHttpLinkAndPort);
+    },
+    mouseleave: ()=> {
+      showMessageAfterCopiedLink();
+    }
   })
-
-
 
     //socket events
     
@@ -168,7 +177,8 @@ $(() => {
 
       serverIPv4Address = data.serverIPv4Address;
       port = data.port;  
-      console.log(serverIPv4Address + ":" + port);   
+      copyHttpLinkAndPort = serverIPv4Address + ":" + port;
+      console.log(copyHttpLinkAndPort);
       //update user list
       userlist = data.userlist;
 
