@@ -3,7 +3,7 @@ $(() => {
   var $loginPage = $('.loginform'); // The login page
 
   // Initialize variables
-  
+
   var username;
   var usercolor;
   var userListread = [];
@@ -61,7 +61,7 @@ $(() => {
         message: message
       });
       // tell server to execute 'new message' and send along one parameter
-      socket.emit('newMessage', 
+      socket.emit('newMessage',
           message
       );
     }
@@ -74,14 +74,24 @@ $(() => {
       .css('color', getUsernameColor(data.username));
     var $messageBodyDiv = $('<span class="text">')
       .text(data.message);
-    
+
+    // checking for user wants autoscroll (is scrolled down)
+    let autoscroll = false;
+    if (document.querySelector("#contend #chat #messages").scrollTop == document.querySelector("#contend #chat #messages").scrollTopMax) {
+      autoscroll = true;
+    }
+    // add new message
     $('#messages').append(
       $("<div class='message'></div>").append(
         $usernameDiv, $messageBodyDiv
       )
     );
+    // is autoscroll aktive
+    if (autoscroll) {
+      document.querySelector("#contend #chat #messages").scrollTop = document.querySelector("#contend #chat #messages").scrollTopMax;
+    }
   }
- 
+
    // Gets the color of a username through our hash function
    const getUsernameColor = (username) => {
     // Compute hash code
@@ -95,14 +105,14 @@ $(() => {
     return COLORS[index];
   }
 
-  
+
   //function to display participants and number of participants
   const log = (message) => {
     $('#userlist').append(
       $("<li></li>").addClass('log').text(message)
-    ); 
+    );
   }
-           
+
   // Sets the client's username
   const setUsername = () => {
     username = cleanInput($usernameInput.val().trim());
@@ -119,7 +129,7 @@ $(() => {
       socket.emit('add user', username, usercolor);
 
       $("#input").attr("placeholder", `Type here...(as ${username})`)
-      
+
       $("#input").focus();
 
     }
@@ -159,7 +169,7 @@ $(() => {
   // Focus input when clicking anywhere on login page
   $loginPage.click(() => {
     $currentInput.focus();
-  }); 
+  });
 
   $("#share").on({
     click: ()=> {
@@ -171,7 +181,7 @@ $(() => {
   })
 
     //socket events
-    
+
    socket.on('login', (data) => {
       connected = true;
 
@@ -182,35 +192,35 @@ $(() => {
       //update user list
       userlist = data.userlist;
 
-      //Display wellcome message  
+      //Display wellcome message
       log("Welcome to Socket.IO Chat – ");
 
   });
-  
+
   socket.on('user joined', (data) => {
-      
+
       //log('user joined: ' + data.username);
-      
+
       //update user lsit
       userlist = data.userlist;
 
       // data.usernameList.forEach(item => {
       //  $('#userlist').append(
       //       $("<li>").addClass('log').text('participants online : ' + item)
-      //    ); 
+      //    );
       //         console.log('participants online : ' + item);
-           
+
       //   });
-      
+
   });
 
 
   socket.on('newMessage', (message) => {
     addChatMessage(message);
-   
+
   });
 
-   
+
   socket.on('disconnect', () => {
     console.log('you have been disconnected');
   });
@@ -221,14 +231,14 @@ $(() => {
     userlist = data.userlist;
 
     log(data.username + ' left');
-  
+
   });
 
   socket.on('reconnect', () => {
     console.log('you have been reconnected');
     if (username) {
       //socket.emit('add user', username);
-      
+
     }
   });
 
@@ -236,7 +246,7 @@ $(() => {
 
     e.preventDefault(); // prevents page reloading
     sendMessage();
-    
+
   });
 
 });
