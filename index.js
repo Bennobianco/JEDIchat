@@ -7,13 +7,10 @@ require('dotenv').config();
 
 var os = require( 'os' );
 const PORT = process.env.SERVER_PORT;
-//var networkInterfaces = os.networkInterfaces( );
-//console.log( networkInterfaces.wlo1[0].address );
+var networkInterfaces = os.networkInterfaces( );
+//console.log(Object.values(networkInterfaces)[1][0].address);
 
-// BUG: the networkInterfaces is different on PC
-//var ServerIPv4Address = os.networkInterfaces().wlo1[0].address;   // 4 BennoBianco
-var ServerIPv4Address = os.networkInterfaces().enp33s0[0].address;  // 4 Captainpast
-
+var ServerIPv4Address = Object.values(networkInterfaces)[1][0].address;  
 //app.set('viewDir', 'views');
 //app.set('view engine', 'html');
 // Routing
