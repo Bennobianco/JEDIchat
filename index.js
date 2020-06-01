@@ -3,6 +3,13 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var path = require('path');
+require('dotenv').config();
+
+var os = require( 'os' );
+const PORT = process.env.SERVER_PORT;
+//var networkInterfaces = os.networkInterfaces( );
+//console.log( networkInterfaces.wlo1[0].address );
+var ServerIPv4Address = os.networkInterfaces( ).wlo1[0].address;
 
 //app.set('viewDir', 'views');
 //app.set('view engine', 'html');
@@ -19,6 +26,10 @@ function User(username, usercolor) {
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/mama', (req, res) => {
+  res.sendFile(__dirname + '/views/index.old.html');
 });
 
 io.on('connection', (socket) => {
@@ -41,10 +52,13 @@ io.on('connection', (socket) => {
     user = new User(username, usercolor);
     socket.user = user;
     userlist.push(user) ;
-    console.log(userlist);
+    //console.log(userlist);
     socket.emit('login', {
       numUsers: numUsers,
-      userlist: userlist
+      userlist: userlist,
+      serverIPv4Address: ServerIPv4Address,
+      port:PORT
+
     });
     //usernameList.push(username) ;
     console.log(user);
@@ -64,7 +78,7 @@ io.on('connection', (socket) => {
       if (addedUser) {
         --numUsers;
 
-         //Remove from array by value
+         //Remove disconnected user from userlist array by value
 
         userlist.splice(userlist.indexOf(socket.user), 1);
         //console.log(usernameList);
@@ -82,9 +96,12 @@ io.on('connection', (socket) => {
 
 });
 
-http.listen(3000, () => {
-  console.log('listening on *:3000');
+http.listen(PORT, () => {
+  console.log(`Server running at http://${ServerIPv4Address}:${PORT}/`);
 });
 
-//`<p>Hallo ${name}</p>`
-//"<p>Hallo " + name + "</p>"
+// http.listen(3000, () => {
+//   console.log('listening on *:3000');
+  
+// });
+

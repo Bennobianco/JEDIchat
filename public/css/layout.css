@@ -120,8 +120,9 @@ html, body {
 
 #contend #chat #messages {
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 60px);
   padding: 10px;
+  overflow: hidden auto;
 }
 #contend #chat #messages .message {
   width: 100%;
@@ -133,7 +134,8 @@ html, body {
 }
 #contend #chat #messages .message:nth-child(2n) {background-color: #ffffff}
 #contend #chat #messages .message .user::after {
-  content: ":"
+  content: ": ";
+  color: #000000;
 }
 #contend #chat #messages .message .time {
   position: absolute;
@@ -167,9 +169,8 @@ html, body {
     margin-top: 14px;
     font-size: 18px;
 }
-#contend #info #parts {
 
-}
+
 #contend #info #parts .part::before {
     width: 10px;
     height: 10px;
