@@ -228,7 +228,7 @@ html, body {
 
 .fab .tooltiptext {
   visibility: hidden;
-  width: 140px;
+
   background-color: #555;
   color: #fff;
   text-align: center;
@@ -237,10 +237,13 @@ html, body {
   position: absolute;
   z-index: 1;
   bottom: 150%;
-  left: 50%;
-  margin-left: -75px;
+  /*left: 50%;
+  margin-left: -100px;
+  width: 140px;*/
   opacity: 0;
+  right: 0;
   transition: opacity 0.3s;
+  font-size: 16px;
 }
 
 .fab:hover .tooltiptext {
