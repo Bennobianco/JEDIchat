@@ -1,82 +1,86 @@
 * {
-    box-sizing: border-box;
-    font-family: 'PT Mono';font-size: 18px;
+  box-sizing: border-box;
+  font-family: 'PT Mono';font-size: 18px;
+  cursor: default;
+  user-select: none;
 }
 
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .loginform {
-    padding: 150px 0;
-    position: absolute;
-    text-align: center;
-    color: #ffffff;
-    background-color:#37474f;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
+  padding: 150px 0;
+  position: absolute;
+  text-align: center;
+  color: #ffffff;
+  background-color:#37474f;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
  }
- .loginform div{
-     position: relative;
-     bottom: 60px;
+.loginform div {
+   position: relative;
+   bottom: 60px;
  }
- .logintitle{
-    font-size: 40px;
+.logintitle {
+  font-size: 40px;
  }
 
- #loginusername{
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #ffffff;
-    outline: none;
-    padding-bottom: 15px;
-    text-align: center;
-    width: 300px;
-    color: #ffffff;
-    font-size: 38px;
- }
+#loginusername {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ffffff;
+  outline: none;
+  padding-bottom: 15px;
+  text-align: center;
+  width: 300px;
+  color: #ffffff;
+  font-size: 38px;
+  cursor: text;
+  user-select: text;
+}
 
 #toolbar {
-    width: 100%;
-    height: 50px;
-    padding: 8px;
-    background-color: #00aaad;
-    display: flex;
-    justify-content: left;
-    align-items: center;
+  width: 100%;
+  height: 50px;
+  padding: 8px;
+  background-color: #00aaad;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 #toolbar #icon {
-    display: inline-block;
+  display: inline-block;
 }
 #toolbar #icon svg{
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 #toolbar #title {
-    display: inline-block;
-    color: #ffffff;
-    font-size: 25px;
-    font-weight: bold;
-    margin-left: 15px;
+  display: inline-block;
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: bold;
+  margin-left: 15px;
 }
 
 #contend {
-    width: 100%;
-    height: calc(100% - 50px);
+  width: 100%;
+  height: calc(100% - 50px);
 }
 
 #contend #chat {
-    width: calc(100% - 400px);
-    height: 100%;
-    display: inline-block;
-    float: left;
-    position: relative;
+  width: calc(100% - 400px);
+  height: 100%;
+  display: inline-block;
+  float: left;
+  position: relative;
 }
 #contend #chat form {
   width: calc(100% - 20px);
@@ -96,6 +100,8 @@ html, body {
   color: #ffffff;
   font: 10px;
   margin: 10px;
+  cursor: text;
+  user-select: text;
 }
 #contend #chat form #send {
   display: none;
@@ -116,6 +122,10 @@ html, body {
   border-radius: 6px;
   position: relative;
   left: 15px;
+  cursor: pointer;
+}
+#contend #chat form div * {
+  cursor: pointer !important;
 }
 
 #contend #chat #messages {
@@ -136,6 +146,12 @@ html, body {
 #contend #chat #messages .message .user::after {
   content: ": ";
   color: #000000;
+  font-size: 18px;
+}
+#contend #chat #messages .message .text {
+  user-select: text;
+  cursor: text;
+  font-size: 18px;
 }
 #contend #chat #messages .message .time {
   position: absolute;
@@ -145,43 +161,43 @@ html, body {
 }
 
 #contend #info {
-    width: 400px;
-    height: 100%;
-    display: inline-block;
-    float: right;
-    background-color: #eeeeee;
-    padding: 30px;
+  width: 400px;
+  height: 100%;
+  display: inline-block;
+  float: right;
+  background-color: #eeeeee;
+  padding: 30px;
 }
 #contend #info {
-    width: 400px;
-    height: 100%;
-    display: inline-block;
-    float: right;
-    background-color: #eeeeee;
-    padding: 30px;
+  width: 400px;
+  height: 100%;
+  display: inline-block;
+  float: right;
+  background-color: #eeeeee;
+  padding: 30px;
 }
 #contend #info #room {
-    margin: 0;
-    font-size: 20px;
+  margin: 0;
+  font-size: 20px;
 }
 #contend #info #partnum {
-    margin: 0;
-    margin-top: 14px;
-    font-size: 18px;
+  margin: 0;
+  margin-top: 14px;
+  font-size: 18px;
 }
 
 
 #contend #info #parts .part::before {
-    width: 10px;
-    height: 10px;
-    content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
-    position: relative;
-    top: 5px;
-    right: 5px;
+  width: 10px;
+  height: 10px;
+  content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+  position: relative;
+  top: 5px;
+  right: 5px;
 }
 #contend #info #parts .part {
-    margin: 5px;
-    font-size: 16px;
+  margin: 5px;
+  font-size: 16px;
 }
 
 #contend #info #share {
@@ -204,4 +220,8 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+}
+.fab * {
+  cursor: pointer !important;
 }
