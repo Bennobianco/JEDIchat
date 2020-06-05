@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" fill="black" width="24px" height="24px">
+  <rect id="top" width="18" height="2" x="3" y="6" />
+  <rect id="center" width="18" height="2" x="3" y="11" />
+  <rect id="bottum" width="18" height="2" x="3" y="16" />
+</svg>

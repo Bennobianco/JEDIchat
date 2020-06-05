@@ -24,12 +24,12 @@ $(() => {
     get: function () { return userListread; },
     set: function (v) {
       userListread = v;
-      
+
       // importand elements
       let objects = {}
       objects.count = document.querySelector("#partnum");
       objects.users = document.querySelector("#parts");
-      
+
       // update list
       if (userlist.length ===1){
         objects.count.innerText = 'one user is online';
@@ -186,7 +186,7 @@ $(() => {
       connected = true;
 
       serverIPv4Address = data.serverIPv4Address;
-      port = data.port;  
+      port = data.port;
       copyHttpLinkAndPort = serverIPv4Address + ":" + port;
       console.log(copyHttpLinkAndPort);
       //update user list
@@ -248,5 +248,16 @@ $(() => {
     sendMessage();
 
   });
+
+  // sidebar EventListener
+  document.querySelector("#toolbar #menu").addEventListener("click" , toggleSidebar)
+  
+  function toggleSidebar() {
+    if (document.body.attributes.getNamedItem("sidebar") == null || document.body.attributes.getNamedItem("sidebar").value != "open") {
+      document.body.setAttribute("sidebar", "open")
+    } else {
+      document.body.setAttribute("sidebar", "close")
+    }
+  }
 
 });
