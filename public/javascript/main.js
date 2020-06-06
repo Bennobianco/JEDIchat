@@ -251,7 +251,28 @@ $(() => {
 
   // sidebar EventListener
   document.querySelector("#toolbar #menu").addEventListener("click" , toggleSidebar)
-  
+  document.querySelector("#contend #overlay").addEventListener("touchstart" , toggleSidebar)
+
+  var sideTouch = {}
+  sideTouch.x = false
+  document.body.addEventListener("touchstart" , function(e) {
+    if ((document.body.offsetWidth - e.touches[0].pageX) < 10) {
+      sideTouch.is = true
+    }
+  })
+  document.body.addEventListener("touchmove" , function(e) {
+    if (sideTouch.is) {
+      sideTouch.x = document.body.offsetWidth - e.touches[0].pageX
+    }
+  })
+  document.body.addEventListener("touchend" , function(e) {
+    if (sideTouch.is && sideTouch.x > 50) {
+      sideTouch.is = false
+      toggleSidebar();
+    }
+  })
+
+  // sidebar event
   function toggleSidebar() {
     if (document.body.attributes.getNamedItem("sidebar") == null || document.body.attributes.getNamedItem("sidebar").value != "open") {
       document.body.setAttribute("sidebar", "open")
@@ -259,5 +280,28 @@ $(() => {
       document.body.setAttribute("sidebar", "close")
     }
   }
+
+  // emoji's
+  document.querySelector("#contend #chat form #spezialinput svg").addEventListener("click" , function () {
+      var input = document.querySelector("#contend #chat form #input")
+      input.value += "😶"
+      input.value = input.value.replace(/:+[)]+😶|[(]+:+😶/g, "🙂")
+      input.value = input.value.replace(/8+[)]+😶|[(]+8+😶/g, "😎")
+      input.value = input.value.replace(/:+D+😶/g, "😀")
+      input.value = input.value.replace(/:+[|]+😶|[|]+:+😶/g, "😐")
+      input.value = input.value.replace(/[)]+:+😶|:+[(]+😶/g, "🙁")
+      input.value = input.value.replace(/;+[)]+😶|[(]+;+😶/g, "😉")
+      input.value = input.value.replace(/:+o+😶|o+:+😶/g, "😮")
+      input.value = input.value.replace(/:+O+😶|O+:+😶/g, "😲")
+      input.value = input.value.replace(/:+p+😶/g, "😋")
+      input.value = input.value.replace(/:+'+[)]+😶|[(]+'+:+😶/g, "😂")
+      input.value = input.value.replace(/[)]+'+:+😶|:+'+[(]+😶/g, "😢")
+      input.value = input.value.replace(/b+😶/g, "👍")
+      input.value = input.value.replace(/q+😶/g, "👎")
+      input.value = input.value.replace(/:+J+😶/g, "😏")
+      input.value = input.value.replace(/<+3+😶/g, "❤")
+
+      $("#input").focus();
+  })
 
 });
