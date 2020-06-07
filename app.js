@@ -3,6 +3,9 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var path = require('path');
+var createError = require('http-errors');
+var exphbs  = require('express-handlebars');
+var indexRouter = require('./routes/index');
 require('dotenv').config();
 
 var os = require( 'os' );
@@ -11,10 +14,19 @@ var networkInterfaces = os.networkInterfaces( );
 //console.log(Object.values(networkInterfaces)[1][0].address);
 
 var ServerIPv4Address = Object.values(networkInterfaces)[1][0].address;  
-//app.set('viewDir', 'views');
-//app.set('view engine', 'html');
-// Routing
+
+app.set('view engine', 'html');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.engine('html', exphbs({
+  extname: 'html',
+  defaultLayout: null
+}));
+
+app.use('/', indexRouter);
+
 
 var numUsers = 0;
 var user;
@@ -24,9 +36,9 @@ function User(username, usercolor) {
   this.usercolor = usercolor;
 }
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/views/index.html');
+// });
 
 io.on('connection', (socket) => {
   var addedUser = false;
@@ -92,11 +104,27 @@ io.on('connection', (socket) => {
 
 });
 
-http.listen(PORT, () => {
+  // catch 404 and forward to error handler
+  app.use(function(req, res, next) {
+  next(createError(404));
+  });
+
+  //error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
+
+  module.exports = app;
+
+  //start server
+  http.listen(PORT, () => {
   console.log(`Server running at http://${ServerIPv4Address}:${PORT}/`);
 });
 
-// http.listen(3000, () => {
-//   console.log('listening on *:3000');
 
-// });
