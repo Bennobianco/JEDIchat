@@ -1,3 +1,4 @@
+window.isRedy = false;
 $(() => {
   var $usernameInput = $('#loginusername'); // user name input field
   var $loginPage = $('.loginform'); // The login page
@@ -13,6 +14,7 @@ $(() => {
   var serverIPv4Address;
   var port
   var copyHttpLinkAndPort;
+  window.isRedy = true;
 
   var COLORS = [
     '#311B92', '#6A1B9A', '#AD1457', '#B71C1C',
