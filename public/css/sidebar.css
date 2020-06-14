@@ -1,0 +1,84 @@
+#contend #info {
+  width: 400px;
+  height: 100%;
+  display: inline-block;
+  float: right;
+  background-color: #eeeeee;
+  padding: 30px;
+  right: 0;
+}
+#contend #info #room {
+  margin: 0;
+  font-size: 20px;
+}
+#contend #info #partnum {
+  margin: 0;
+  margin-top: 14px;
+  font-size: 18px;
+}
+
+
+#contend #info #parts .part::before {
+  width: 10px;
+  height: 10px;
+  content: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>');
+  position: relative;
+  top: 5px;
+  right: 5px;
+}
+#contend #info #parts .part {
+  margin: 5px;
+  font-size: 16px;
+}
+
+#contend #info #share {
+  background-color: #7477b8;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+#contend #info #email {
+  background-color: #add58a;
+  position: absolute;
+  bottom: 20px;
+  right: 80px;
+}
+
+#contend #overlay {
+  display: none;
+}
+
+.fab {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.fab * {
+  cursor: pointer !important;
+}
+
+.fab .tooltiptext {
+  visibility: hidden;
+
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  opacity: 0;
+  right: 0;
+  transition: opacity 0.3s;
+  font-size: 16px;
+}
+
+.fab:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
