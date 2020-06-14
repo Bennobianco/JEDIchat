@@ -303,12 +303,5 @@ $(() => {
     })
   }
 
-  for (var i = 0; i < document.querySelectorAll("#contend #chat #emojis .value span").length; i++) {
-    document.querySelectorAll("#contend #chat #emojis .value span")[i].addEventListener("click", function(event) {
-      document.querySelector("#contend #chat form #input").value += event.target.innerText;
-      $("#input").focus();
-    })
-  }
-
 
 });
