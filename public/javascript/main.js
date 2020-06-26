@@ -1,3 +1,4 @@
+window.isRedy = false;
 $(() => {
   var $usernameInput = $('#loginusername'); // user name input field
   var $loginPage = $('.loginform'); // The login page
@@ -14,6 +15,7 @@ $(() => {
   var port
   var copyHttpLinkAndPort;
   var text="";
+  window.isRedy = true;
 
   var COLORS = [
     '#311B92', '#6A1B9A', '#AD1457', '#B71C1C',
@@ -331,26 +333,24 @@ $(() => {
   });
 
   // emoji's
-  document.querySelector("#contend #chat form #spezialinput svg").addEventListener("click" , function () {
-      var input = document.querySelector("#contend #chat form #input")
-      input.value += "😶"
-      input.value = input.value.replace(/:+[)]+😶|[(]+:+😶/g, "🙂")
-      input.value = input.value.replace(/8+[)]+😶|[(]+8+😶/g, "😎")
-      input.value = input.value.replace(/:+D+😶/g, "😀")
-      input.value = input.value.replace(/:+[|]+😶|[|]+:+😶/g, "😐")
-      input.value = input.value.replace(/[)]+:+😶|:+[(]+😶/g, "🙁")
-      input.value = input.value.replace(/;+[)]+😶|[(]+;+😶/g, "😉")
-      input.value = input.value.replace(/:+o+😶|o+:+😶/g, "😮")
-      input.value = input.value.replace(/:+O+😶|O+:+😶/g, "😲")
-      input.value = input.value.replace(/:+p+😶/g, "😋")
-      input.value = input.value.replace(/:+'+[)]+😶|[(]+'+:+😶/g, "😂")
-      input.value = input.value.replace(/[)]+'+:+😶|:+'+[(]+😶/g, "😢")
-      input.value = input.value.replace(/b+😶/g, "👍")
-      input.value = input.value.replace(/q+😶/g, "👎")
-      input.value = input.value.replace(/:+J+😶/g, "😏")
-      input.value = input.value.replace(/<+3+😶/g, "❤")
-
-      $("#input").focus();
+  document.querySelector("#contend #chat form #spezialinput svg").addEventListener("click", function() {
+    if (document.querySelector("#contend #chat").attributes.getNamedItem("emojis") == null || document.querySelector("#contend #chat").attributes.getNamedItem("emojis").value != "open") {
+      document.querySelector("#contend #chat").setAttribute("emojis", "open")
+    } else {
+      document.querySelector("#contend #chat").setAttribute("emojis", "close")
+    }
   })
+
+  for (var i = 0; i < document.querySelectorAll("#contend #chat #emojis .heder .item").length; i++) {
+    let obj = document.querySelectorAll("#contend #chat #emojis .heder .item")[i]
+    obj.addEventListener("click", function(event) {
+      for (var i = 0; i < document.querySelectorAll("#contend #chat #emojis .heder .item").length; i++) {
+        document.querySelectorAll("#contend #chat #emojis .heder .item")[i].classList.remove("selected")
+      }
+      document.querySelector("#contend #chat #emojis .value p#"+obj.id).scrollIntoView({behavior: "smooth"})
+      obj.classList.add("selected")
+    })
+  }
+
 
 });
