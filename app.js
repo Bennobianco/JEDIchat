@@ -6,10 +6,17 @@ var path = require('path');
 var createError = require('http-errors');
 var exphbs  = require('express-handlebars');
 var indexRouter = require('./routes/index');
+const nodemailer = require("nodemailer");
 require('dotenv').config();
 
 var os = require( 'os' );
 const PORT = process.env.SERVER_PORT;
+// const e sending mail
+const HOST = process.env.EMAIL_HOST;
+const E_PORT = process.env.EMAIL_PORT;
+const E_USER = process.env.EMAIL_USER;
+const E_PASS = process.env.EMAIL_PASS;
+
 var networkInterfaces = os.networkInterfaces( );
 //console.log(Object.values(networkInterfaces)[1][0].address);
 
@@ -36,11 +43,55 @@ function User(username, usercolor) {
   this.usercolor = usercolor;
 }
 
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/views/index.html');
-// });
+var socket;
+var sender;
+var receiver;
+var messageStatus;
 
-io.on('connection', (socket) => {
+// async..await is not allowed in global scope, must use a wrapper
+async function sendm() {
+  // Take test SMTP service account from ionos bennobianco.
+  
+  let name = sender.split('@');
+  let senderName = name[0] + '<' + sender + '>'
+  receiver = receiver.trim() ;
+  console.log(senderName);
+  receiver = (receiver.replace(/,/g, ", "));
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: HOST,
+    port: E_PORT,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: E_USER, 
+      pass: E_PASS 
+    }
+  });
+  var mailOptions = {
+    from: senderName,
+    to: receiver, // list of receivers
+    subject: "Hello", // Subject line
+    text: "Hello world?", // plain text body
+    html: "<b>Hello world test?</b>", // html body
+  };
+ 
+  let info = await transporter.sendMail(mailOptions);
+
+  //console.log("Message sent: %s", info.response);
+  console.log(info.response);
+  messageStatus = info;
+    //console.log(messageStatus);
+  //console.log('sender: ' +  sender);
+   //console.log('receiver: ' + receiver);
+   socket.emit('messageStatus', {
+    messageStatus: messageStatus
+  }); 
+  
+}
+
+
+io.on('connection', (s) => {
+  socket = s;
   var addedUser = false;
   console.log('a user conneted');
 
@@ -52,6 +103,7 @@ io.on('connection', (socket) => {
     });
   });
 
+  
   socket.on('add user', (username,usercolor)=> {
     if (addedUser) return;
     ++numUsers;
@@ -80,6 +132,19 @@ io.on('connection', (socket) => {
 
   });
 
+  socket.on('sendmail', (msg) => {
+  
+    sender = msg.sender;
+    receiver = msg.receiver;
+    
+    sendm().catch((error)  =>{
+      socket.emit('messageStatus', {
+        messageStatus: error
+      })
+    });
+    
+
+  }); 
     // when the user disconnects.. perform this
     socket.on('disconnect', () => {
       console.log('a user disconnect');
@@ -99,8 +164,6 @@ io.on('connection', (socket) => {
         });
       }
     });
-
-
 
 });
 
