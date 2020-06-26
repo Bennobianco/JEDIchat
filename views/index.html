@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/emailform.css">
     <link rel="stylesheet" href="/css/toolbar.css">
     <link rel="stylesheet" href="/css/sidebar.css">
     <link rel="stylesheet" href="/css/contend.css">
@@ -12,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-migrate-3.2.0.min.js" integrity="sha256-t+8cuBH4205MYRAyzzsk0sEla/l5QSO0GuTeozHrVNY=" crossorigin="anonymous"></script>
     <script src="/javascript/main.js" type="text/javascript"></script>
+    <script src="/javascript/sendmail.js" type="text/javascript"></script>
     <link href='https://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=PT Mono' rel='stylesheet'>
     <link rel="icon" href="/img/JED.png" type="image/png">
@@ -169,6 +171,22 @@
         <div id="parts">
           <!--<p class="part">BennoBianco(you)</p>-->
         </div>
+        <!-- form to send an email to particiepants-->
+        <div class="form-popup" id="emailForm">
+          <form action="/action_page.php" class="form-container">
+            <h2>Send email</h2>
+        
+            <label for="email"><b>your sender Email</b></label>
+            <input id="m" type="email" placeholder="Enter sender" name="" required></input>
+            
+            <label for=""><b>receiver email</b></label>
+            
+             <textarea id=receiver placeholder="receiver email"></textarea>
+            
+            <button type="submit" class="btn">send</button>
+            <button type="button" class="btn cancel">Close</button>
+          </form>
+        </div >
         <div
           class="fab" id="share">
           <span class="tooltiptext" id="myTooltip">Copy Jed link to clipboard</span>
