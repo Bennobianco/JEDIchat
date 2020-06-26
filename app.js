@@ -43,13 +43,13 @@ function User(username, usercolor) {
   this.usercolor = usercolor;
 }
 
-var socket;
+//var socket;
 var sender;
 var receiver;
 var messageStatus;
 
 // async..await is not allowed in global scope, must use a wrapper
-async function sendm() {
+async function sendm(socket) {
   // Take test SMTP service account from ionos bennobianco.
   
   let name = sender.split('@');
@@ -90,8 +90,8 @@ async function sendm() {
 }
 
 
-io.on('connection', (s) => {
-  socket = s;
+io.on('connection', (socket) => {
+  //socket = s;
   var addedUser = false;
   console.log('a user conneted');
 
@@ -137,7 +137,7 @@ io.on('connection', (s) => {
     sender = msg.sender;
     receiver = msg.receiver;
     
-    sendm().catch((error)  =>{
+    sendm(socket).catch((error)  =>{
       socket.emit('messageStatus', {
         messageStatus: error
       })
