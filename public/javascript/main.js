@@ -201,20 +201,7 @@ $(() => {
   });
 
   socket.on('user joined', (data) => {
-
-      //log('user joined: ' + data.username);
-
-      //update user lsit
       userlist = data.userlist;
-
-      // data.usernameList.forEach(item => {
-      //  $('#userlist').append(
-      //       $("<li>").addClass('log').text('participants online : ' + item)
-      //    );
-      //         console.log('participants online : ' + item);
-
-      //   });
-
   });
 
 
@@ -232,7 +219,6 @@ $(() => {
   socket.on('user left', (data) => {
     //update user lsit
     userlist = data.userlist;
-
     log(data.username + ' left');
 
   });
@@ -330,6 +316,7 @@ $(() => {
 
         //console.log(status.messageStatus);
         $('.messageInfo').html(text);
+        $("#input").focus();
   });
 
   // emoji's
@@ -351,6 +338,5 @@ $(() => {
       obj.classList.add("selected")
     })
   }
-
 
 });
