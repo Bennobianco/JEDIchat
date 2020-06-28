@@ -67,12 +67,14 @@ async function sendm(socket) {
       pass: E_PASS 
     }
   });
+  
+ 
   var mailOptions = {
     from: senderName,
     to: receiver, // list of receivers
-    subject: "Hello", // Subject line
+    subject: "Invitation to chat with JediChat", // Subject line
     text: "Hello world?", // plain text body
-    html: "<b>Hello world test?</b>", // html body
+    html: "<b>Follow the link to enter the chatroom </b> " + '' + ServerIPv4Address + ':' + PORT, // html body
   };
  
   let info = await transporter.sendMail(mailOptions);
