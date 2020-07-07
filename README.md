@@ -1,5 +1,5 @@
-# JEDIchat 
-Javascript emit discussion interface
+# JEDI chat 
+**J**avascript **e**mit **d**iscussion **i**nterface
 
 
 ### Installation:
