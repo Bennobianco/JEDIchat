@@ -6,9 +6,6 @@ if (window.isRedy) {
 
 function addEmojis() {
   this.emojis = {
-    last: [
-      
-    ],
     emotions: [
       "😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","😉","😊","😇",
       "🥰","😍","🤩","😘","😗","😚","😙",
@@ -64,7 +61,6 @@ function addEmojis() {
     }
   }
 
-  html += addToHTML("Last", this.emojis.last);
   html += addToHTML("Emotions", this.emojis.emotions);
   html += addToHTML("Animals", this.emojis.animals);
   html += addToHTML("Food", this.emojis.food);
