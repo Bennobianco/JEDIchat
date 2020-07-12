@@ -29,7 +29,6 @@ addEventListener("load", function() {
  socket.on('user left', (data) => {
    //update user lsit
    userlist = data.userlist;
-   log(data.username + ' left');
 
  });
 
