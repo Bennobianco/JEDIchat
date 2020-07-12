@@ -1,11 +1,14 @@
-var express = require('express');
+var express = require("express");
 var app = express();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-var path = require('path');
-var createError = require('http-errors');
-var exphbs  = require('express-handlebars');
-var indexRouter = require('./routes/index');
+var http = require("http");
+var https = require("https");
+var fs = require("fs");
+var server;
+var io;
+var path = require("path");
+var createError = require("http-errors");
+var exphbs  = require("express-handlebars");
+var indexRouter = require("./routes/index");
 const nodemailer = require("nodemailer");
 require('dotenv').config();
 
@@ -16,11 +19,28 @@ const HOST = process.env.EMAIL_HOST;
 const E_PORT = process.env.EMAIL_PORT;
 const E_USER = process.env.EMAIL_USER;
 const E_PASS = process.env.EMAIL_PASS;
+// const for https
+const HTTPS = process.env.HTTPS;
+const HTTPS_KEY = process.env.HTTPS_KEY;
+const HTTPS_CERT = process.env.HTTPS_CERT;
 
 var networkInterfaces = os.networkInterfaces( );
 //console.log(Object.values(networkInterfaces)[1][0].address);
 
-var ServerIPv4Address = Object.values(networkInterfaces)[1][0].address;  
+var ServerIPv4Address = Object.values(networkInterfaces)[1][0].address;
+
+//http or https
+if (HTTPS == "true") {
+  let = options = {
+    key: fs.readFileSync(HTTPS_KEY),
+    cert: fs.readFileSync(HTTPS_CERT)
+  }
+  server = https.createServer(options ,app)
+} else {
+  server = http.createServer(app)
+}
+io = require("socket.io")(server);
+
 
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
@@ -51,7 +71,7 @@ var messageStatus;
 // async..await is not allowed in global scope, must use a wrapper
 async function sendm(socket) {
   // Take test SMTP service account from ionos bennobianco.
-  
+
   let name = sender.split('@');
   let senderName = name[0] + '<' + sender + '>'
   receiver = receiver.trim() ;
@@ -63,12 +83,12 @@ async function sendm(socket) {
     port: E_PORT,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: E_USER, 
-      pass: E_PASS 
+      user: E_USER,
+      pass: E_PASS
     }
   });
-  
- 
+
+
   var mailOptions = {
     from: senderName,
     to: receiver, // list of receivers
@@ -76,7 +96,7 @@ async function sendm(socket) {
     text: "Hello world?", // plain text body
     html: "<b>Follow the link to enter the chatroom </b> " + '' + ServerIPv4Address + ':' + PORT, // html body
   };
- 
+
   let info = await transporter.sendMail(mailOptions);
 
   //console.log("Message sent: %s", info.response);
@@ -87,8 +107,8 @@ async function sendm(socket) {
    //console.log('receiver: ' + receiver);
    socket.emit('messageStatus', {
     messageStatus: messageStatus
-  }); 
-  
+  });
+
 }
 
 
@@ -105,7 +125,7 @@ io.on('connection', (socket) => {
     });
   });
 
-  
+
   socket.on('add user', (username,usercolor)=> {
     if (addedUser) return;
     ++numUsers;
@@ -135,18 +155,18 @@ io.on('connection', (socket) => {
   });
 
   socket.on('sendmail', (msg) => {
-  
+
     sender = msg.sender;
     receiver = msg.receiver;
-    
+
     sendm(socket).catch((error)  =>{
       socket.emit('messageStatus', {
         messageStatus: error
       })
     });
-    
 
-  }); 
+
+  });
     // when the user disconnects.. perform this
     socket.on('disconnect', () => {
       console.log('a user disconnect');
@@ -187,9 +207,9 @@ io.on('connection', (socket) => {
 
   module.exports = app;
 
-  //start server
-  http.listen(PORT, () => {
-  console.log(`Server running at http://${ServerIPv4Address}:${PORT}/`);
+//start server
+server.listen(PORT, () => {
+  let protocol = "http"
+  if (HTTPS == "true") {protocol = "https"}
+  console.log(`Server running at ${protocol}://${ServerIPv4Address}:${PORT}/`);
 });
-
-
