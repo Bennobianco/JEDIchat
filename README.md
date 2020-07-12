@@ -17,13 +17,24 @@
     ```
     $ npm install
     ```
+4. add a `.env` file
+    ```
+    SERVER_PORT = 3000
+    EMAIL_HOST = email.host
+    EMAIL_PORT = 800
+    EMAIL_USER = test.user@email.eu
+    EMAIL_PASS = ********
+    HTTPS = false
+    HTTPS_KEY = cert/https.key
+    HTTPS_CERT = cert/https.cet
+    ```
     
-4. Run JEDIchat
+5. Run JEDIchat
     ```
     $ npm start
     ```
     
-5. Now open you Webbrowser at `http://localhost:3000/`
+6. Now open you Webbrowser at `http://localhost:3000/`
 
 ### Dependencies:
 * [socket.io](https://www.npmjs.com/package/socket.io)
