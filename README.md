@@ -28,12 +28,10 @@
     HTTPS_KEY = cert/https.key
     HTTPS_CERT = cert/https.cet
     ```
-
 5. Run JEDIchat
     ```
     $ npm start
     ```
-
 6. Now open you Webbrowser at `http://localhost:3000/`
 
 ### Dependencies:
