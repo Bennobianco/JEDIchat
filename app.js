@@ -9,10 +9,15 @@ var path = require("path");
 var createError = require("http-errors");
 var exphbs  = require("express-handlebars");
 var indexRouter = require("./routes/index");
-const nodemailer = require("nodemailer");
-require('dotenv').config();
-
 var os = require( 'os' );
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv").config();
+
+// check for dotenv errors
+if (dotenv.error) {
+  console.log("please check if you have created an '.env' file\n  more: https://github.com/Bennobianco/JEDIchat/blob/master/README.md");
+  process.exit();
+}
 const PORT = process.env.SERVER_PORT;
 // const e sending mail
 const HOST = process.env.EMAIL_HOST;
