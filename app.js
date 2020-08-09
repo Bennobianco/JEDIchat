@@ -63,9 +63,11 @@ app.use('/', indexRouter);
 var numUsers = 0;
 var user;
 var userlist = [];
-function User(username, usercolor) {
+
+function User(username, usercolor,userroom) {
   this.username = username;
   this.usercolor = usercolor;
+  this.userroom = userroom;
 }
 
 //var socket;
@@ -111,52 +113,59 @@ async function sendm(socket) {
   //console.log('sender: ' +  sender);
    //console.log('receiver: ' + receiver);
    socket.emit('messageStatus', {
-    messageStatus: messageStatus
+      messageStatus: messageStatus
   });
 
 }
 
-
 io.on('connection', (socket) => {
-  //socket = s;
+ 
   var addedUser = false;
   console.log('a user conneted');
+  //console.log(socket.username);
 
-  socket.on('newMessage', (data) => {
-    //console.log( data);
-    socket.broadcast.emit("newMessage", {
-      message: data,
-      username:socket.username
-    });
-  });
-
-
-  socket.on('add user', (username,usercolor)=> {
+  socket.on('add user', (username,usercolor,userroom)=> {
     if (addedUser) return;
     ++numUsers;
     addedUser = true;
     socket.username = username;
-    user = new User(username, usercolor);
+    user = new User(username, usercolor, userroom);
     socket.user = user;
-    userlist.push(user) ;
+    userlist.push(user);
     //console.log(userlist);
+    console.log(user);
     socket.emit('login', {
-      numUsers: numUsers,
-      userlist: userlist,
+      //numUsers: numUsers,
+      userlist: userlist.filter(user => user.userroom == userroom),
       serverIPv4Address: ServerIPv4Address,
       port:PORT
 
     });
     //usernameList.push(username) ;
-    console.log(user);
-
+    
+    socket.join(user.userroom);
+    //io.to(user.userroom).emit('some event');
       // echo globally (all clients expect you) that a person has connected
-    socket.broadcast.emit('user joined', {
+    socket.to(socket.user.userroom).emit('user joined', {
       username: socket.username,
-      numUsers: numUsers,
-      userlist: userlist
+      //numUsers: numUsers,
+      userlist: userlist.filter(user => user.userroom == userroom)
     });
 
+  });
+  
+   // get the message from one client and sends it to the others
+   socket.on('newMessage', (data) => {
+    console.log( data);
+    // socket.broadcast.emit("newMessage", {
+    //   message: data,
+    //   username:socket.username
+    // });
+    console.log(socket.user.userroom);
+    socket.to(socket.user.userroom).emit("newMessage", {
+      message: data,
+      username:socket.username
+    });
   });
 
   socket.on('sendmail', (msg) => {
@@ -184,19 +193,26 @@ io.on('connection', (socket) => {
         //console.log(usernameList);
 
         // echo globally that this client has left
-        socket.broadcast.emit('user left', {
+        socket.to(socket.user.userroom).emit('user left', {
           username: socket.username,
-          numUsers: numUsers,
-          userlist: userlist
+          //numUsers: numUsers,
+          userlist: userlist.filter(user => user.userroom == socket.user.userroom)
         });
       }
     });
 
 });
 
+  // const authMiddleware = (req, res, next) => {
+  //   res.writeHead(401);
+  //   res.end('Permissin denied');
+  // }
+
+  // app.use('/private/*', authMiddleware);
+
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
   });
 
   //error handler
