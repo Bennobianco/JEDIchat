@@ -59,7 +59,6 @@ app.engine('html', exphbs({
 
 app.use('/', indexRouter);
 
-
 var numUsers = 0;
 var user;
 var userlist = [];
@@ -77,8 +76,7 @@ var messageStatus;
 
 // async..await is not allowed in global scope, must use a wrapper
 async function sendm(socket) {
-  // Take test SMTP service account from ionos bennobianco.
-
+  
   let name = sender.split('@');
   let senderName = name[0] + '<' + sender + '>'
   receiver = receiver.trim() ;
@@ -94,7 +92,6 @@ async function sendm(socket) {
       pass: E_PASS
     }
   });
-
 
   var mailOptions = {
     from: senderName,

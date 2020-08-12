@@ -37,8 +37,8 @@ addEventListener("load", function() {
   // EventListener
   $('#emailForm form').submit(function(e) {
     e.preventDefault(); // prevents page reloading
-    sender = $('#m').val();
-    receiver =  $('#receiver').val();
+    let sender = $('#m').val();
+    let receiver =  $('#receiver').val();
     socket.emit('sendmail', {
         sender: sender,
         receiver: receiver
