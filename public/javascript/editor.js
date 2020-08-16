@@ -36,10 +36,10 @@ addEventListener("load", function() {
     } else {
       curser.classList.add("selection");
 
-      tempObj.innerText = val.substring(0, pos);
+      tempObj.innerHTML = jsToHtmlString(val.substring(0, pos));
       curser.style.left = tempObj.offsetWidth+"px";
 
-      tempObj.innerText = val.substring(pos, posEnd);
+      tempObj.innerHTML = jsToHtmlString(val.substring(pos, posEnd));
       curser.style.width = tempObj.offsetWidth+"px";
     }
     document.body.removeChild(tempObj);
