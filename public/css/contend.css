@@ -26,7 +26,7 @@
 #contend #chat[emojis="open"] form {
   border-radius: 10px 0px 10px 10px;
 }
-#contend #chat form #input {
+/*#contend #chat form #input {
   width: calc(100% - 90px - 50px);
   padding: 0;
   border: none;
@@ -36,7 +36,7 @@
   margin: 10px;
   cursor: text;
   user-select: text;
-}
+}*/
 #contend #chat form #send {
   display: none;
   width: 50px;
@@ -58,7 +58,7 @@
   left: 15px;
   cursor: pointer;
 }
-#contend #chat form div * {
+#contend #chat form #send + div * {
   cursor: pointer !important;
 }
 
@@ -105,6 +105,14 @@
   user-select: text;
   cursor: text;
   font-size: 18px;
+}
+#contend #chat #messages .message .text * {
+  user-select: text;
+  cursor: text;
+  font-size: 18px;
+}
+#contend #chat #messages .message .text a {
+  cursor: pointer;
 }
 #contend #chat #messages .message .time {
   position: absolute;

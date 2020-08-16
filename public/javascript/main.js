@@ -115,7 +115,7 @@ function addChatMessage(data) {
     .text(data.username)
     .css('color', getUsernameColor(data.username));
   var $messageBodyDiv = $('<span class="text">')
-    .text(data.message.text);
+    .html(text2Down(data.message.text));
 
   var messageTime;
   let now = new Date();
