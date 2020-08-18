@@ -1,0 +1,73 @@
+/*CSS by Captinpast*/
+
+code {
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border: solid 1px #cccccc;
+  padding: 2px;
+}
+
+#editor {
+  width: calc(100% - 90px - 50px);
+  height: 30px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 5px;
+  cursor: text !important;
+  position: relative;
+  scrollbar-width: none;
+}
+
+#editor .curser {
+  width: 1px;
+  height: 20px;
+  background-color: #000000;
+  position: absolute;
+  top: 5px;
+  opacity: 0;
+  transition: left .1s, width .1s, opacity .2s;
+}
+
+#editor.focus .curser.selection {
+  opacity: .2 !important;
+}
+
+#editor.focus .curser.visible {
+  opacity: 1;
+}
+
+#editor .content {
+  min-width: 100%;
+  border: none;
+  padding: 5px 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+  position: absolute;
+  top: 0; left: 0;
+  opacity: 0;
+  cursor: text !important;
+  user-select: text;
+}
+
+#editor .view {
+  min-width: 100%;
+  padding: 5px 0;
+  font-size: 18px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#editor .view span.syntax {
+  color: #888888;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+#editor .view span.symbolicA {
+  color: blue;
+  text-decoration: underline;
+}

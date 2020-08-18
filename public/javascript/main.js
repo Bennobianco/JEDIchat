@@ -52,7 +52,9 @@ addEventListener("load", function() {
 
   $('form').submit((e) => {
     e.preventDefault(); // prevents page reloading
-    sendMessage();
+    if ($('#input').val() != "") {
+      sendMessage();
+    }
   });
 
 })
@@ -95,7 +97,7 @@ Object.defineProperty(this, "userlist", {
 
 // Send a chat message
 function sendMessage() {
-  var message = $('#input').val();
+  var message = `{"text": "${$('#input').val()}", "time": ${Date.now()}}`;
   // Prevent markup from being injected into the message
   message = cleanInput(message);
   // if there is a non-empty message and a socket connection
@@ -106,9 +108,7 @@ function sendMessage() {
       message: message
     });
     // tell server to execute 'new message' and send along one parameter
-    socket.emit('newMessage',
-        message
-    );
+    socket.emit('newMessage', message);
   }
 }
 
@@ -119,11 +119,27 @@ function cleanInput(input) {
 
 //add a message to htmlchat
 function addChatMessage(data) {
+  data.message = JSON.parse(data.message)
   var $usernameDiv = $('<span class="user"/>')
     .text(data.username)
     .css('color', getUsernameColor(data.username));
   var $messageBodyDiv = $('<span class="text">')
-    .text(data.message);
+    .html(text2Down(data.message.text));
+
+  var messageTime;
+  let now = new Date();
+  let mst = new Date(data.message.time); // mst = message sent time
+  // check for message is sendet today
+  if (now.toDateString() == mst.toDateString()) {
+    let h = (mst.getHours()<10?"0":"")+mst.getHours();
+    let m = (mst.getMinutes()<10?"0":"")+mst.getMinutes();
+
+    messageTime = h+":"+m;
+  } else {
+    messageTime = mst.toString();
+  }
+  var $messageTimeDiv = $('<span class="time">')
+    .text(messageTime);
 
   // checking for user wants autoscroll (is scrolled down)
   let autoscroll = false;
@@ -133,7 +149,7 @@ function addChatMessage(data) {
   // add new message
   $('#messages').append(
     $("<div class='message'></div>").append(
-      $usernameDiv, $messageBodyDiv
+      $usernameDiv, $messageBodyDiv, $messageTimeDiv
     )
   );
   // is autoscroll aktive
