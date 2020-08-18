@@ -2,6 +2,7 @@
 window.isRedy = false;
 var username;           // name of the current user
 var usercolor;          // display color of the current user
+var userroom;
 var userListread = [];  // list of all connected users
 var $currentInput;
 var connected = false;
@@ -17,6 +18,7 @@ const COLORS = [
   "#673AB7", "#01579B", "#00838F", "#00695C",
   "#388E3C", "#827717", "#FF6F00", "#5D4037"
 ];
+
 
 addEventListener("load", function() {
   //runs when html, css, javascript and other sources are loaded
@@ -63,6 +65,7 @@ Object.defineProperty(this, "userlist", {
 
     // importand elements
     let objects = {}
+    let usersOnline = 0;
     objects.count = document.querySelector("#partnum");
     objects.users = document.querySelector("#parts");
 
@@ -72,13 +75,19 @@ Object.defineProperty(this, "userlist", {
     }else{
       objects.count.innerText = userlist.length + " users are online:";
     }
+    console.log(usersOnline);
     html = "";
     for (let i = 0; i < userlist.length; i++) {
-      if (userlist[i].username == username) {
-        html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}(you)</p>`
-      } else {
-        html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}</p>`
-      }
+      //console.log(userlist[i].userroom);
+      //if ((userlist[i].userroom == userroom)){
+        if (userlist[i].username == username) {
+          html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}(you)</p>`
+          usersOnline ++;
+        } else {
+          html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}</p>`
+          usersOnline ++;
+        }
+     // }  
     }
     objects.users.innerHTML = html;
   }
@@ -150,6 +159,7 @@ function getUsernameColor(username) {
 function setUsername() {
   username = cleanInput($usernameInput.val().trim());
   usercolor = getUsernameColor(username);
+  userroom = getRoomName();
   // If the username is valid
   if (username) {
     $usernameInput.fadeOut(800);
@@ -158,14 +168,19 @@ function setUsername() {
     $loginPage.off('click');
     //$currentInput = $inputMessage.focus();
 
-    // Tell the server your username an color
-    socket.emit('add user', username, usercolor);
+    // Tell the server your username, color and roomname
+    socket.emit('add user', username, usercolor, userroom);
 
     $("#input").attr("placeholder", `Type here...(as ${username})`)
 
     $("#input").focus();
 
   }
+}
+
+function getRoomName(){
+  let rn = location.pathname.split('/');
+  return rn[2]
 }
 
 //used to copy text to clipboard if user using an https address
