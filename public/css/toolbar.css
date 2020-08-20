@@ -21,6 +21,9 @@
   font-size: 25px;
   font-weight: bold;
   margin-left: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #toolbar #menu {
