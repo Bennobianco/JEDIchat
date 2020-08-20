@@ -46,7 +46,13 @@ addEventListener("load", function() {
 
     editor.scrollLeft = content.scrollLeft;
 
-    view.innerHTML = text2Down(val, true);
+    if (val != "") {
+      view.style.opacity = "1";
+      view.innerHTML = text2Down(val, true);
+    } else {
+      view.style.opacity = "0.6";
+      view.innerHTML = text2Down(content.placeholder);
+    }
   }
 
   content.addEventListener("input", function() {
