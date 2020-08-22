@@ -23,7 +23,7 @@
   align-items: center;
   transition: border-radius .5s;
 }
-#contend #chat[emojis="open"] form {
+#contend #chat[emojis="open"] form, #contend #chat[attache="open"] form {
   border-radius: 10px 0px 10px 10px;
 }
 /*#contend #chat form #input {
@@ -63,7 +63,7 @@
 }
 
 #contend #chat form #spezialinput {
-  width: 50px;
+  width: 60px;
   height: 100%;
   display: inline-flex;
   justify-content: center;
@@ -74,7 +74,7 @@
   border-radius: 10px 0 0 10px;
   transition: border-radius .5s;
 }
-#contend #chat[emojis="open"] form #spezialinput {
+#contend #chat[emojis="open"] form #spezialinput, #contend #chat[attache="open"] form #spezialinput {
   border-radius: 0 0 0 10px;
 }
 #contend #chat form #spezialinput * {

@@ -67,7 +67,7 @@ addEventListener("load" , function() {
   updateListener();
 
   // EventListener
-  document.querySelector("#contend #chat form #spezialinput svg").addEventListener("click", function() {
+  document.querySelector("#contend #chat form #spezialinput svg.emojis").addEventListener("click", function() {
     if (document.querySelector("#contend #chat").attributes.getNamedItem("emojis") == null ||
         document.querySelector("#contend #chat").attributes.getNamedItem("emojis").value != "open") {
       document.querySelector("#contend #chat").setAttribute("emojis", "open")
