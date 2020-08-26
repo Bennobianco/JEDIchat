@@ -1,20 +1,20 @@
 addEventListener("load" , function() {
   var action = {};
+  action.file = function() {
+    console.log("file");
+  }
   action.image = function() {
     console.log("image");
   }
   action.audio = function() {
     console.log("audio");
   }
-  action.file = function() {
-    console.log("file");
-  }
   action.map = function() {
     console.log("map");
   }
 
 
-  action.image()
+  action.file()
 
   // EventListener
   document.querySelector("#contend #chat form #spezialinput svg.attache").addEventListener("click", function() {
