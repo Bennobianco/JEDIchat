@@ -2,11 +2,94 @@
 <html lang="de">
   <head>
     <meta charset="utf-8">
+    
     <title></title>
-    <link rel="shortcut icon" href=".ico">
+    
     <script type="text/javascript"></script>
+    <script src="/socket.io/socket.io.js"></script>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      var socket = io();
+         jQuery(($)=>{
+        //   var 
+        //     username = '{{nickname}}',
+        //     usercolor = 'red',
+        //     userroom = 'test';
+
+              
+             
+             // socket.emit('add user', username, usercolor, userroom);
+        //      $("button").click(function(){
+            
+        //       console.log($('#nickname').val());
+        //       username = $('#nickname').val();
+        //       socket.emit('add user', username, usercolor, userroom);
+        //       location.pathname = '/';
+
+        //     });  
+
+           /* $('form').submit((e) => {
+            
+
+            e.preventDefault(); // prevents page reloading
+            
+            username = $('#nickname').val();
+            userroom = $('#roomname').val();
+            console.log(username);
+            socket.emit('check user', username, userroom);
+          });  */
+
+          //console.log($("nickname").val());
+          
+          //console.log(username);
+          
+        });
+    </script>
   </head>
   <body>
-    <h2>{{ title}}</h2>
+    <h2>{{ heading}}</h2>
+    
+
+      {{#if userExists}}
+        <p class='warning'> this user already exists. Type an other username </p>
+      {{/if}}
+
+      {{#if roomExistst}}
+        <p class='warning'>this room already exists please choose a new one or join</p>
+      {{/if}}
+
+      {{#if roomNotExistst}}
+        <p class='warning'> this room does not exits do you want to create a new one? Or choose the right room</p>
+      {{/if}}
+
+    <div class="loginform1">
+      
+          <h3 class="title">type in your nickname and enter</h3>
+
+          <form method="POST" action="/jed" >
+
+            <input type="radio" id="joinRoom" name="handleRoom" value="joinRoom" checked>
+            <label for="joinRoom">join room</label><br>
+            <input type="radio" id="createRoom" name="handleRoom" value="createRoom" >
+            <label for="createRoom">create room</label><br><br>
+            
+            
+            <label for="nickname">nickname:</label><br>
+            <input type="text" id="nickname" name="nickname" value="{{ nickname }}"><br>
+            <label for="roomname">roomname:</label><br>
+          
+            <input id="roomname" name="roomname" type="text" /><br>
+            <input type="submit" value="login">
+
+          </form>
+
+          
+
+        
+      </div>
+      
+    
   </body>
+  
 </html>

@@ -23,7 +23,7 @@
     <title>JEDI</title>
   </head>
   <body>
-    <div class="loginform">
+    <!--<div class="loginform">
       <svg viewBox="0 0 6.3499999 6.3500002" height="500" width="500" style="position:absolute;opacity:.1;">
         <defs>
           <linearGradient id="linearGradient8610">
@@ -49,7 +49,7 @@
         <h3 class="logintitle">type in your nickname and enter</h3>
         <input id="loginusername" type="text" maxlength="14" />
       </div>
-    </div>
+    </div>-->
     <div id="toolbar">
       <div id="icon">
         <svg viewBox="0 0 6.3499999 6.3500002" height="24" width="24">
@@ -140,7 +140,7 @@
         <p id="room">Room: {{roomName}}</p>
         <p id="partnum"><!--2 Participants:--></p>
         <div id="parts">
-          <!--<p class="part">BennoBianco(you)</p>-->
+          <p class="part" id='yourNickname'>{{nickname}}</p>
         </div>
         <!-- form to send an email to particiepants-->
         <div class="form-popup" id="emailForm">

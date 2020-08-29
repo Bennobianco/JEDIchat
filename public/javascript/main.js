@@ -29,13 +29,13 @@ addEventListener("load", function() {
   socket = io();
   $currentInput = $usernameInput.focus();
 
-
   // EventListener
-  $usernameInput.keydown(event => {
-    if (event.which === 13) {
-      setUsername();
-    }
-  });
+  setUsername();
+  // $usernameInput.keydown(event => {
+  //   if (event.which === 13) {
+  //     setUsername();
+  //   }
+  // });
   // Focus input when clicking anywhere on login page
   $loginPage.click(() => {
     $currentInput.focus();
@@ -157,7 +157,8 @@ function getUsernameColor(username) {
 
 // Sets the client's username
 function setUsername() {
-  username = cleanInput($usernameInput.val().trim());
+  //username = cleanInput($usernameInput.val().trim());
+  username = $("#yourNickname").text();
   usercolor = getUsernameColor(username);
   userroom = getRoomName();
   // If the username is valid
