@@ -2,7 +2,7 @@
 const verifyUser = (username, userRoomList) => {
     
     for (let i = 0; i < userRoomList.length; i++) {
-        //console.log(userRoomList[i].userroom);
+        console.log(userRoomList[i].username);
         if (userRoomList[i].username == username){
             return false;
         } 

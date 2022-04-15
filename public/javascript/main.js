@@ -12,6 +12,7 @@ var port;               // the port of the used server
 var copyHttpLinkAndPort;
 var text = "";
 var $usernameInput;     // user name input field
+var counterSameuserLogin;
 var $loginPage;         // The login page
 const COLORS = [
   "#311B92", "#6A1B9A", "#AD1457", "#B71C1C",
@@ -75,14 +76,16 @@ Object.defineProperty(this, "userlist", {
     }else{
       objects.count.innerText = userlist.length + " users are online:";
     }
-    console.log(usersOnline);
+    //console.log(usersOnline);
     html = "";
     for (let i = 0; i < userlist.length; i++) {
       //console.log(userlist[i].userroom);
       //if ((userlist[i].userroom == userroom)){
         if (userlist[i].username == username) {
-          html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}(you)</p>`
-          usersOnline ++;
+              //console.log(userlist[i].username);
+              html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}(you)</p>`
+              usersOnline ++;
+          
         } else {
           html += `<p class="part" style="color:${userlist[i].usercolor}">${userlist[i].username}</p>`
           usersOnline ++;
@@ -163,10 +166,12 @@ function setUsername() {
   userroom = getRoomName();
   // If the username is valid
   if (username) {
-    $usernameInput.fadeOut(800);
-    $loginPage.fadeOut(1000);
+    var txt2 = $("<p></p>").text('room: '+ userroom);
+    $('#room').append(txt2);
+    //$usernameInput.fadeOut(800);
+    //$loginPage.fadeOut(1000);
     //$chatPage.show();
-    $loginPage.off('click');
+    //$loginPage.off('click');
     //$currentInput = $inputMessage.focus();
 
     // Tell the server your username, color and roomname
@@ -175,7 +180,6 @@ function setUsername() {
     $("#input").attr("placeholder", `Type here...(as ${username})`)
 
     $("#input").focus();
-
   }
 }
 

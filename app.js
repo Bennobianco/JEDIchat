@@ -102,9 +102,15 @@ io.on('connection', (socket) => {
     socket.username = username;
     user = new User(username, usercolor, userroom);
     socket.user = user;
-    userlist.push(user);
-    //console.log(user);
     
+    // if you are already logged in and skip the 
+    //login page in the same browser by simply typing <server>/every/<room> 
+    //then this will prevent the duplicate user in the userlist.
+    if (userlist.filter(cuser => cuser.username == user.username).length <= 0){
+      userlist.push(user);
+    }
+    
+    console.log(userlist);
     socket.emit('login', {
       //numUsers: numUsers,
       userlist: userlist.filter(user => user.userroom == userroom),

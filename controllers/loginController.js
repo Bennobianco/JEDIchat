@@ -1,4 +1,5 @@
 var roomName1;
+var nickname1;
 const userService = require('../services/userService')
 
 const getRoom = (roomName) => {
@@ -17,11 +18,14 @@ const renderLogin = (req, res) => {
 };
 
 const submitLogin = (req, res) => {
-    req.session.nickname = req.body.nickname;
+    
     req.session.roomname = req.body.roomname;
 
     if (userService.verifyUser(req.body.nickname,roomName1)){ 
+        
         req.session.isUser = true;
+        req.session.nickname = req.body.nickname;
+        req.session.roomName = roomName1;
         if(userService.verifyRoom(req.body.roomname, roomName1) && (req.body.handleRoom == 'createRoom')) {
             res.redirect('/jed/' + req.body.roomname); 
         } else if (!userService.verifyRoom(req.body.roomname, roomName1) && (req.body.handleRoom == 'joinRoom')){

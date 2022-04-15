@@ -8,7 +8,6 @@ const
   homeController = require('../controllers/homeController');
 
 
-
 router.get('/jed/:roomName', authMiddleware, roomController.renderRoom); 
 
 router.get('/', homeController.renderHome);
